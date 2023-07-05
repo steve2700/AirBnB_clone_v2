@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#Fabric script to generate .tgz archive using the run once 
+'''Fabric script to generate .tgz archive using the run once'''
 
 from fabric.api import local
 from datetime import datetime
