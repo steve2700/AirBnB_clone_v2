@@ -1,18 +1,19 @@
 #!/usr/bin/python3
 from fabric.api import local
-from datetime import datetime
+from time import strftime
+from datetime import date
 
 
 def do_pack():
-    """
-    Generates a .tgz file from the content of the web_static
-    """
+    """ A script that generates archive the contents of web_static folder"""
+
+    filename = strftime("%Y%m%d%H%M%S")
     try:
-        current_time = datetime.utcnow().strftime("%Y%m%d%H%M%S")
-        file_name = "web_static_{}.tgz".format(current_time)
-        folder_name = "versions"
-        local("mkdir -p {}".format(folder_name))
-        local("tar -cvzf {}/{} web_static".format(folder_name, file_name))
-        return "web_static packed: {}/{}".format(folder_name, file_name)
-    except:
+        local("mkdir -p versions")
+        local("tar -czvf versions/web_static_{}.tgz web_static/"
+              .format(filename))
+
+        return "versions/web_static_{}.tgz".format(filename)
+
+    except Exception as e:
         return None
